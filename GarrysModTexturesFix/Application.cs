@@ -9,33 +9,31 @@ namespace GarrysModTexturesFix
 {
     public class Application
     {
+        private readonly DownloadManager downloadManager = DownloadManager.Get();
         private string garrysModPath;
-
-        private Uri[] contentDownloadUrls =
+        private readonly Uri[] contentDownloadUrls =
         {
-            new Uri("http://kajar9.myddns.me/downloads/loccsscontent-OT6d6vwFxj09gRB/CSS_Content_Addon_2021.zip"),
-            new Uri("http://kajar9.myddns.me/downloads/lochl2e1content-1unoHYrK5z25D3P/HL2_Ep1_Content_Addon_2021.zip"),
-            new Uri("http://kajar9.myddns.me/downloads/lochl2e2content-2I2uG42I4C7G0no/HL2_Ep2_Content_Addon_2021.zip")
-        }; // TODO: Major problem. Cannot unzip these archives programatically... "The archive entry was compressed using LZMA and is not supported."
+            new Uri("https://downloads-eu.gmodcontent.com/file/gmodcontent-eu/css-content-gmodcontent.zip"),
+            new Uri("https://downloads-eu.gmodcontent.com/file/gmodcontent-eu/hl2ep1-content-gmodcontent.zip"),
+            new Uri("https://downloads-eu.gmodcontent.com/file/gmodcontent-eu/hl2ep2-content-gmodcontent.zip")
+        }; // TODO: 403 forbidden
 
         public async void Run()
         {
-            try
-            {
-                SetGmodPath();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                return;
-            }
+            Setup();
+            
+            if (!DetectGmodPath())
+                try
+                {
+                    ManualSetGmodPath();
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
+                    return;
+                }
 
-            List<Task> downloadTasks = new List<Task>();
-            foreach (Uri contentPack in contentDownloadUrls)
-            {   
-                downloadTasks.Add(Download(contentPack));
-            }
-            await Task.WhenAll(downloadTasks);
+            await downloadManager.DownloadList(contentDownloadUrls, Directory.GetCurrentDirectory());
 
             List<Task> unzipTasks = new List<Task>();
             for (int i = 0; i < contentDownloadUrls.Length; i++)
@@ -46,9 +44,9 @@ namespace GarrysModTexturesFix
             await Task.WhenAll(unzipTasks);
         }
 
-        private void SetGmodPath()
+        private void ManualSetGmodPath()
         {
-            Console.Write("Please provide Garry's Mod path (i.e  D:/Games/Steam/steamapps/common/GarrysMod): ");
+            Console.Write("Please provide Garry's Mod installation path (i.e  C:/Program Files (x86)/Steam/steamapps/common/GarrysMod): ");
             garrysModPath = Console.ReadLine();
 
             if (!File.Exists(garrysModPath + "/hl2.exe"))
@@ -66,24 +64,34 @@ namespace GarrysModTexturesFix
                 Console.WriteLine(exception.Message);
             }
         }
-        
-        private async Task Download(Uri url)
-        {
-            using WebClient webClient = new WebClient();
-            webClient.DownloadProgressChanged += (o, e) => Console.WriteLine($"Downloading {url}: {e.ProgressPercentage}% { e.BytesReceived / 1048576 }MB/{ e.TotalBytesToReceive / 1048576 }MB");
-            webClient.DownloadFileCompleted += (o, e) => Console.WriteLine("Download complete!");
 
-            string fileName = url.ToString().Split("/")[url.ToString().Split("/").Length - 1];
+        private bool DetectGmodPath()
+        {
+            string[] possiblePaths =
+            {
+                @"C:\Program Files (x86)\Steam\steamapps\common\GarrysMod",
+                @"D:\Program Files (x86)\Steam\steamapps\common\GarrysMod"
+            };
             
-            try
+            Console.WriteLine("Attempting to auto-detect Garry's Mod installation.");
+            
+            foreach (string path in possiblePaths)
             {
-                await webClient.DownloadFileTaskAsync(url, $"{ Directory.GetCurrentDirectory() }/{ fileName }");
+                if (File.Exists(path + @"\hl2.exe"))
+                {
+                    Console.WriteLine(@$"Detected Garry's Mod path. { path }\hl2.exe");
+                    garrysModPath = path;
+                    return true;
+                }
             }
-            catch (Exception exception)
-            {
-                Console.WriteLine("Couldn't download " + url + "\n" + exception.Message);
-            }
-            webClient.Dispose();
+            
+            return false;
+        }
+
+        private void Setup()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Title = "GarrysModTextureFix";
         }
     }
 }
