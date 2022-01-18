@@ -13,10 +13,10 @@ namespace GarrysModTexturesFix
         private string garrysModPath;
         private readonly Uri[] contentDownloadUrls =
         {
-            new Uri("https://downloads-eu.gmodcontent.com/file/gmodcontent-eu/css-content-gmodcontent.zip"),
-            new Uri("https://downloads-eu.gmodcontent.com/file/gmodcontent-eu/hl2ep1-content-gmodcontent.zip"),
-            new Uri("https://downloads-eu.gmodcontent.com/file/gmodcontent-eu/hl2ep2-content-gmodcontent.zip")
-        }; // TODO: 403 forbidden
+            new Uri("https://gmodcontent.de/css-content-gmodcontent.zip"),
+            new Uri("https://gmodcontent.de/hl2ep1-content-gmodcontent.zip"),
+            new Uri("https://gmodcontent.de/hl2ep2-content-gmodcontent.zip")
+        };
 
         public async void Run()
         {
@@ -55,9 +55,11 @@ namespace GarrysModTexturesFix
 
         private void InjectContentPack(string contentPackPath)
         {
+            string destination = $@"{garrysModPath}\garrysmod\addons\";
             try
             {
-                ZipFile.ExtractToDirectory(contentPackPath, Directory.GetCurrentDirectory());
+                Console.WriteLine($@"Extracting { contentPackPath } to { destination }");
+                ZipFile.ExtractToDirectory(contentPackPath, destination);
             }
             catch (Exception exception)
             {

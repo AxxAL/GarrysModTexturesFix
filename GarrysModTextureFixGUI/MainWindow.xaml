@@ -1,0 +1,32 @@
+﻿<Window x:Class="GarrysModTextureFixGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GarrysModTextureFixGUI"
+        mc:Ignorable="d"
+        Title="Garry's Mod Content Fix" Height="450" Width="500"
+        ResizeMode="NoResize"
+        >
+    <StackPanel>
+        <TextBlock HorizontalAlignment="Center" FontSize="24" Margin="0 20 0 6" >
+            Garry's Mod Texture Fix
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Center" FontSize="10" Foreground="Gray" Margin="0 0 0 40">
+            by AxxAL
+        </TextBlock>
+        <Label HorizontalAlignment="Center">
+            Garry's Mod installation path:
+        </Label>
+        <TextBlock HorizontalAlignment="Center" Name="GmodPathTextBlock">
+            N/A
+        </TextBlock>
+        <Button HorizontalAlignment="Center" Click="OpenFileDialog_Click" Margin="20" Name="SelectInstallationPath">
+            Select Garry's Mod installation path.
+        </Button>
+        <TextBlock HorizontalAlignment="Center" />
+        <Button HorizontalAlignment="Center" Margin="0 10 0 0" Height="80" Width="200" IsEnabled="False" Name="FixContentButton" Click="FixMissingContentButton_Click">
+            Fix missing content
+        </Button>
+    </StackPanel>
+</Window>

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarrysModTexturesFix", "GarrysModTexturesFix\GarrysModTexturesFix.csproj", "{D34F140D-30FA-4BB9-A139-27B684FE8212}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarrysModTextureFixGUI", "GarrysModTextureFixGUI\GarrysModTextureFixGUI.csproj", "{FE1B521D-F511-4DDB-A191-CC158B2A9E75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D34F140D-30FA-4BB9-A139-27B684FE8212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D34F140D-30FA-4BB9-A139-27B684FE8212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D34F140D-30FA-4BB9-A139-27B684FE8212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1B521D-F511-4DDB-A191-CC158B2A9E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1B521D-F511-4DDB-A191-CC158B2A9E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1B521D-F511-4DDB-A191-CC158B2A9E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1B521D-F511-4DDB-A191-CC158B2A9E75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
