@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GarrysModTextureFixGUI"
         mc:Ignorable="d"
-        Title="Garry's Mod Content Fix" Height="450" Width="500"
+        Title="Garry's Mod Content Fix" Height="500" Width="500"
         ResizeMode="NoResize"
         >
     <StackPanel>
@@ -24,7 +24,10 @@
         <Button HorizontalAlignment="Center" Click="OpenFileDialog_Click" Margin="20" Name="SelectInstallationPath">
             Select Garry's Mod installation path.
         </Button>
-        <TextBlock HorizontalAlignment="Center" />
+        <Label HorizontalAlignment="Center" Margin="0 40 0 0" >Download Progress:</Label>
+        <ProgressBar Height="20" Width="200" Name="CSSDownloadProgress" Margin="0 5 0 0" />
+        <ProgressBar Height="20" Width="200" Name="EP1DownloadProgress" Margin="0 5 0 0" />
+        <ProgressBar Height="20" Width="200" Name="EP2DownloadProgress" Margin="0 5 0 0" />
         <Button HorizontalAlignment="Center" Margin="0 10 0 0" Height="80" Width="200" IsEnabled="False" Name="FixContentButton" Click="FixMissingContentButton_Click">
             Fix missing content
         </Button>
